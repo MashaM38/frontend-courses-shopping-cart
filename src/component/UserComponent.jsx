@@ -11,13 +11,15 @@ class UserComponent extends Component {
             id: this.props.match.params.id,
             name: '',
             surname: '',
-            email: '',
-        }
+            email: ''
+        }        
+        this.onSubmit = this.onSubmit.bind(this)
     }
 
     componentDidMount() {
         console.log(this.state.id)
         
+        //TODO:
         if (this.state.id == -1) {
             return
         }
@@ -30,20 +32,48 @@ class UserComponent extends Component {
             }))
     }
 
+    onSubmit(values) {
+        console.log(values);
+    }
+
     render() {
         let { id, name, surname, email } = this.state
 
         return (
             <div>
                 <h3>User Details</h3>
-                <div>{id}</div>
-                <div>{name}</div>
-                <div>{surname}</div>
-                <div>{email}</div>
+                <Formik
+                    initialValues={{ id, name, surname, email }}
+                    onSubmit={this.onSubmit}
+                >
+                    {
+                        (props) => (
+                            <Form>
+                                <fieldset className="form-group">
+                                    <label>Id</label>
+                                    <Field className="form-control" type="text" name="id" disabled />
+                                </fieldset>
+                                <fieldset className="form-group">
+                                    <label>Name</label>
+                                    <Field className="form-control" type="text" name="name" />
+                                </fieldset>
+                                <fieldset className="form-group">
+                                    <label>Surname</label>
+                                    <Field className="form-control" type="text" name="surname" />
+                                </fieldset>
+                                <fieldset className="form-group">
+                                    <label>E-mail</label>
+                                    <Field className="form-control" type="text" name="email" />
+                                </fieldset>
+                                <button className="btn btn-success" type="submit">Save</button>
+                            </Form>
+                        )
+                    }
+                </Formik>
             </div>            
       )
   }
-  
+
 }
 
 export default UserComponent
