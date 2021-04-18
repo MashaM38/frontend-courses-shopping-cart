@@ -59,7 +59,7 @@ class ListUsersComponent extends Component {
                 {this.state.message && <div className="alert alert-success">{this.state.message}</div>}               
                 <div className="container">
                     <div className="float-right">
-                        <Button color="success" onClick={this.addUserClicked}>Add User</Button>
+                        <Button color="info" onClick={this.addUserClicked}>Add User</Button>
                     </div>
                     <table className="table">
                         <thead>

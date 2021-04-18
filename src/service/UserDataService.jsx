@@ -9,7 +9,11 @@ const USER_API_URL = `${COURSE_API_URL}/users`
 class UserDataService {
     retrieveAllUsers() {
         return axios.get(`${USER_API_URL}`);
-    }   
+    }  
+    
+    retrieveUser(id) {
+        return axios.get(`${USER_API_URL}/${id}`);
+    }
 
     deleteUser(id) {        
         return axios.delete(`${USER_API_URL}/${id}`);
