@@ -14,6 +14,7 @@ class UserComponent extends Component {
             email: ''
         }        
         this.onSubmit = this.onSubmit.bind(this)
+        this.validate = this.validate.bind(this)
     }
 
     componentDidMount() {
@@ -36,6 +37,30 @@ class UserComponent extends Component {
         console.log(values);
     }
 
+    validate(values) {
+        let errors = {}
+
+        if (!values.name) {
+            errors.name = 'Enter User name'
+        } else if (values.name.length < 2) {
+            errors.name = 'Enter at least 2 Characters in Name field'
+        }
+
+        if (!values.surname) {
+            errors.name = 'Enter User surname'
+        } else if (values.surname.length < 4) {
+            errors.surname = 'Enter at least 4 Characters in Surname field'
+        }
+
+        if (!values.email) {
+            errors.email = 'Enter User e-mail'
+        } else if (!values.email.includes('@')) {
+            errors.surname = 'Invalid e-mail!'
+        }
+    
+        return errors
+    }
+
     render() {
         let { id, name, surname, email } = this.state
 
@@ -45,10 +70,16 @@ class UserComponent extends Component {
                 <Formik
                     initialValues={{ id, name, surname, email }}
                     onSubmit={this.onSubmit}
+                    validateOnChange={false}
+                    validateOnBlur={false}
+                    validate={this.validate}
+                    enableReinitialize={true}
                 >
                     {
                         (props) => (
                             <Form>
+                                <ErrorMessage name="name" component="div"
+                                        className="alert alert-warning" />
                                 <fieldset className="form-group">
                                     <label>Id</label>
                                     <Field className="form-control" type="text" name="id" disabled />
