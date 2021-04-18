@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button, Container } from 'reactstrap';
 import UserDataService from '../service/UserDataService';
 
 const USER_ID = 1;
@@ -14,6 +15,7 @@ class ListUsersComponent extends Component {
         this.refreshUsers = this.refreshUsers.bind(this)
         this.deleteUserClicked = this.deleteUserClicked.bind(this)
         this.updateUserClicked = this.updateUserClicked.bind(this)
+        this.addUserClicked = this.addUserClicked.bind(this)
     }
 
     componentDidMount() {
@@ -46,12 +48,19 @@ class ListUsersComponent extends Component {
         this.props.history.push(`/users/${id}`)
     }
 
+    addUserClicked() {
+        this.props.history.push(`/users/-1`)
+    }
+
     render() {
         return (
             <div className="container">
                 <h3>All Users Data</h3> 
                 {this.state.message && <div className="alert alert-success">{this.state.message}</div>}               
                 <div className="container">
+                    <div className="float-right">
+                        <Button color="success" onClick={this.addUserClicked}>Add User</Button>
+                    </div>
                     <table className="table">
                         <thead>
                             <tr>
