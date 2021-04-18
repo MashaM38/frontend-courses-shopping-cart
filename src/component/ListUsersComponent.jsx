@@ -39,8 +39,7 @@ class ListUsersComponent extends Component {
                     this.setState({ message: `Delete of user ${id} is Successful` })
                     this.refreshUsers();
                 }
-            )
-    
+            )    
     }
 
     updateUserClicked(id) {
@@ -49,7 +48,7 @@ class ListUsersComponent extends Component {
     }
 
     addUserClicked() {
-        this.props.history.push(`/users/-1`)
+        this.props.history.push(`/users`)
     }
 
     render() {

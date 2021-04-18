@@ -33,7 +33,23 @@ class UserComponent extends Component {
             }))
     }
 
-    onSubmit(values) {
+    onSubmit(values) {        
+        let user = {
+            id: this.state.id,
+            name: values.name,
+            surname: values.surname,
+            email: values.email,
+            targetDate: values.targetDate
+        }
+
+        if (this.state.id === -1) {
+            UserDataService.createUser(user)
+                .then(() => this.props.history.push('/users'))
+        } else {
+            UserDataService.updateUser(user)
+                .then(() => this.props.history.push('/users'))
+        }
+
         console.log(values);
     }
 
