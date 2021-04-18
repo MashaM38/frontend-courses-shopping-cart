@@ -12,7 +12,8 @@ class ListUsersComponent extends Component {
             message: null
         }
         this.refreshUsers = this.refreshUsers.bind(this)
-        this.deleteCourseClicked = this.deleteCourseClicked.bind(this)
+        this.deleteUserClicked = this.deleteUserClicked.bind(this)
+        this.updateUserClicked = this.updateUserClicked.bind(this)
     }
 
     componentDidMount() {
@@ -29,7 +30,7 @@ class ListUsersComponent extends Component {
             )
     }
 
-    deleteCourseClicked(id) {
+    deleteUserClicked(id) {
         UserDataService.deleteUser(id)
             .then(
                 response => {
@@ -38,6 +39,11 @@ class ListUsersComponent extends Component {
                 }
             )
     
+    }
+
+    updateUserClicked(id) {
+        console.log('update user id = ' + id)
+        this.props.history.push(`/users/${id}`)
     }
 
     render() {
@@ -52,7 +58,9 @@ class ListUsersComponent extends Component {
                                 <th>Id</th>
                                 <th>Name</th>
                                 <th>Surname</th>
-                                <th>E-mail</th>                                
+                                <th>E-mail</th>
+                                <th>Update</th>
+                                <th>Delete</th>                                
                             </tr>
                         </thead>
                         <tbody>
@@ -64,7 +72,8 @@ class ListUsersComponent extends Component {
                                             <td>{user.name}</td>
                                             <td>{user.surname}</td>
                                             <td>{user.email}</td> 
-                                            <td><button className="btn btn-warning" onClick={() => this.deleteCourseClicked(user.id)}>Delete</button></td>                                           
+                                            <td><button className="btn btn-success" onClick={() => this.updateUserClicked(user.id)}>Update</button></td>
+                                            <td><button className="btn btn-warning" onClick={() => this.deleteUserClicked(user.id)}>Delete</button></td>                                            
                                         </tr>
                                 )
                             }
