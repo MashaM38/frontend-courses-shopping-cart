@@ -12,6 +12,7 @@ class ListUserCoursesComponent extends Component {
             message: null
         }
         this.refreshUsers = this.refreshUsers.bind(this)
+        this.deleteCourseClicked = this.deleteCourseClicked.bind(this)
     }
 
     componentDidMount() {
@@ -19,7 +20,7 @@ class ListUserCoursesComponent extends Component {
     }
 
     refreshUsers() {
-        UserCoursesDataService.retrieveAllUsers(USER_ID)//HARDCODED
+        UserCoursesDataService.retrieveAllUserCourses(USER_ID)//HARDCODED
             .then(
                 response => {
                     console.log(response);
@@ -28,16 +29,28 @@ class ListUserCoursesComponent extends Component {
             )
     }
 
+    //TODO:
+    deleteCourseClicked(USER_ID, courseId) {
+        UserCoursesDataService.deleteCourse(USER_ID, courseId)
+            .then(
+                response => {
+                    this.setState({ message: `Delete of course ${courseId} is Successful` })
+                    this.refreshCourses()
+                }
+            )    
+    }
+
     render() {
         return (
             <div className="container">
                 <h3>All User Courses</h3>
+                {this.state.message && <div class="alert alert-success">{this.state.message}</div>}
                 <div className="container">
                     <table className="table">
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Name</th>                                
+                                <th>Name</th>                                                                
                             </tr>
                         </thead>
                         <tbody>
@@ -46,7 +59,7 @@ class ListUserCoursesComponent extends Component {
                                     course =>
                                         <tr key={course.id}>
                                             <td>{course.id}</td>
-                                            <td>{course.name}</td>
+                                            <td>{course.name}</td>                                            
                                         </tr>
                                 )
                             }
