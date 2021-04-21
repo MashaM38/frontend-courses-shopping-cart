@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Container } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import UserDataService from '../service/UserDataService';
 
 const USER_ID = 1;
@@ -48,6 +49,7 @@ class ListUsersComponent extends Component {
     }
 
     addUserClicked() {
+        console.log('Add user')
         this.props.history.push(`/users`)
     }
 
@@ -58,7 +60,7 @@ class ListUsersComponent extends Component {
                 {this.state.message && <div className="alert alert-success">{this.state.message}</div>}               
                 <div className="container">
                     <div className="float-right">
-                        <Button color="info" onClick={this.addUserClicked}>Add User</Button>
+                        <Button color="info" tag={Link} to="/users/new" onClick={this.addUserClicked}>Add User</Button>
                     </div>
                     <table className="table">
                         <thead>

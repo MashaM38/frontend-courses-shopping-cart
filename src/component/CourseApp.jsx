@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import ListUsersComponent from './ListUsersComponent';
 import HomeComponent from './HomeComponent';
 import UserComponent from './UserComponent';
+import AddUserComponent from './AddUserComponent';
 
 class CourseApp extends Component {
     render() {
@@ -14,6 +15,7 @@ class CourseApp extends Component {
                     <Switch>
                         <Route path="/"  exact={true} component={HomeComponent} />
                         <Route path="/users" exact component={ListUsersComponent} />
+                        <Route path="/users/new" exact component={AddUserComponent} />
                         <Route path="/users/:id" component={UserComponent} />                        
                     </Switch>
                 </>
