@@ -20,11 +20,6 @@ class UserComponent extends Component {
     componentDidMount() {
         console.log(this.state.id)
         
-        //TODO:
-        if (this.state.id == -1) {
-            return
-        }
-
         UserDataService.retrieveUser(this.state.id)
             .then(response => this.setState({
                 name: response.data.name,
@@ -42,13 +37,8 @@ class UserComponent extends Component {
             targetDate: values.targetDate
         }
 
-        if (this.state.id === -1) {
-            UserDataService.createUser(user)
+        UserDataService.updateUser(user)
                 .then(() => this.props.history.push('/users'))
-        } else {
-            UserDataService.updateUser(user)
-                .then(() => this.props.history.push('/users'))
-        }
 
         console.log(values);
     }

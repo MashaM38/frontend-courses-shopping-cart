@@ -18,19 +18,6 @@ class AddUserComponent extends Component {
     }
 
     componentDidMount() {
-        // console.log(this.state.id)
-        
-        // //TODO:
-        // if (this.state.id == -1) {
-        //     return
-        // }
-
-        // UserDataService.retrieveUser(this.state.id)
-        //     .then(response => this.setState({
-        //         name: response.data.name,
-        //         surname: response.data.surname,
-        //         email: response.data.email
-        //     }))
     }
 
     onSubmit(values) {        
