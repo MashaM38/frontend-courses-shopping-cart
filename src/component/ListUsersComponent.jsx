@@ -53,6 +53,11 @@ class ListUsersComponent extends Component {
         this.props.history.push(`/users`)
     }
 
+    getUserCoursesClicked(id) {
+        console.log('Get courses for user id = ' + id)
+        this.props.history.push(`/users/${id}/courses`)        
+    }
+
     render() {
         return (
             <div className="container">
@@ -66,9 +71,8 @@ class ListUsersComponent extends Component {
                         <thead>
                             <tr>
                                 <th>Id</th>
-                                <th>Name</th>
-                                <th>Surname</th>
-                                <th>E-mail</th>
+                                <th>Name Surname</th>
+                                <th>E-mail</th>                                
                                 <th>Update</th>
                                 <th>Delete</th>                                
                             </tr>
@@ -79,9 +83,8 @@ class ListUsersComponent extends Component {
                                     user =>
                                         <tr key={user.id}>
                                             <td>{user.id}</td>
-                                            <td>{user.name}</td>
-                                            <td>{user.surname}</td>
-                                            <td>{user.email}</td> 
+                                            <td><Button color="link" onClick={() => this.getUserCoursesClicked(user.id)}>{user.name} {user.surname}</Button></td>
+                                            <td>{user.email}</td>                                            
                                             <td><button className="btn btn-success" onClick={() => this.updateUserClicked(user.id)}>Update</button></td>
                                             <td><button className="btn btn-warning" onClick={() => this.deleteUserClicked(user.id)}>Delete</button></td>                                            
                                         </tr>
