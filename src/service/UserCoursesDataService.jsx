@@ -3,14 +3,12 @@ import axios from 'axios'
 const COURSE_API_URL = 'http://localhost:8080'
 
 const USER_API_URL = `${COURSE_API_URL}/users`
-//const COURSE_API_URL = ``
 
 
 class UserCoursesDataService {
-    retrieveAllUserCourses(userId) {
+    retrieveAllCourses(userId) {
         return axios.get(`${USER_API_URL}/${userId}/courses`);
     }
-
     
     //TODO:
     deleteCourse(userId) {

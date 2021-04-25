@@ -3,8 +3,6 @@ import { Button, Container } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import UserDataService from '../service/UserDataService';
 
-const USER_ID = 1;
-
 class ListUsersComponent extends Component {
 
     constructor(props) {

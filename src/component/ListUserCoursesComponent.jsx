@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import UserCoursesDataService from '../service/UserCoursesDataService';
 
-const USER_ID = 1;
-
 class ListUserCoursesComponent extends Component {
 
     constructor(props) {
@@ -11,16 +9,16 @@ class ListUserCoursesComponent extends Component {
             courses: [],
             message: null
         }
-        this.refreshUsers = this.refreshUsers.bind(this)
-        this.deleteCourseClicked = this.deleteCourseClicked.bind(this)
+        this.refreshCourses = this.refreshCourses.bind(this)
+        //TODO: this.deleteCourseClicked = this.deleteCourseClicked.bind(this)
     }
 
     componentDidMount() {
-        this.refreshUsers();
+        this.refreshCourses(this.props.match.params.id);
     }
 
-    refreshUsers() {
-        UserCoursesDataService.retrieveAllUserCourses(USER_ID)//HARDCODED
+    refreshCourses(id) {
+        UserCoursesDataService.retrieveAllCourses(id)
             .then(
                 response => {
                     console.log(response);
@@ -29,22 +27,22 @@ class ListUserCoursesComponent extends Component {
             )
     }
 
-    //TODO:
-    deleteCourseClicked(USER_ID, courseId) {
-        UserCoursesDataService.deleteCourse(USER_ID, courseId)
-            .then(
-                response => {
-                    this.setState({ message: `Delete of course ${courseId} is Successful` })
-                    this.refreshCourses()
-                }
-            )    
-    }
+    // //TODO:
+    // deleteCourseClicked(USER_ID, courseId) {
+    //     UserCoursesDataService.deleteCourse(USER_ID, courseId)
+    //         .then(
+    //             response => {
+    //                 this.setState({ message: `Delete of course ${courseId} is Successful` })
+    //                 this.refreshCourses()
+    //             }
+    //         )    
+    // }
 
     render() {
         return (
             <div className="container">
                 <h3>All User Courses</h3>
-                {this.state.message && <div class="alert alert-success">{this.state.message}</div>}
+                {/* {this.state.message && <div class="alert alert-success">{this.state.message}</div>} */}
                 <div className="container">
                     <table className="table">
                         <thead>

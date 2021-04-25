@@ -17,8 +17,8 @@ class CourseApp extends Component {
                         <Route path="/"  exact={true} component={HomeComponent} />
                         <Route path="/users" exact component={ListUsersComponent} />
                         <Route path="/users/new" exact component={AddUserComponent} />
-                        <Route path="/users/:id" component={UserComponent} />
-                        <Route path="/users/:id/courses" component={ListUserCoursesComponent} />                        
+                        <Route path="/users/:id/courses" component={ListUserCoursesComponent} />
+                        <Route path="/users/:id" component={UserComponent} />                                                
                     </Switch>
                 </>
             </Router>
