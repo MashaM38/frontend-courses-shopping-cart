@@ -6,15 +6,15 @@ class ListUserCoursesComponent extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            courses: [],
+            courses: [],            
             message: null
         }
         this.refreshCourses = this.refreshCourses.bind(this)
-        //TODO: this.deleteCourseClicked = this.deleteCourseClicked.bind(this)
+        this.deleteCourseClicked = this.deleteCourseClicked.bind(this)
     }
 
     componentDidMount() {
-        this.refreshCourses(this.props.match.params.id);
+        this.refreshCourses(this.props.match.params.id);        
     }
 
     refreshCourses(id) {
@@ -26,23 +26,23 @@ class ListUserCoursesComponent extends Component {
                 }
             )
     }
-
-    // //TODO:
-    // deleteCourseClicked(USER_ID, courseId) {
-    //     UserCoursesDataService.deleteCourse(USER_ID, courseId)
-    //         .then(
-    //             response => {
-    //                 this.setState({ message: `Delete of course ${courseId} is Successful` })
-    //                 this.refreshCourses()
-    //             }
-    //         )    
-    // }
+ 
+    deleteCourseClicked(userId, courseId) {
+        console.log('Delete course id = ' + courseId)
+        UserCoursesDataService.deleteCourse(userId, courseId)
+        .then(
+            response => {
+                this.setState({ message: `Delete of courseId ${courseId} is Successful` })
+                this.refreshCourses(userId)
+            }
+        )  
+    }
 
     render() {
         return (
             <div className="container">
                 <h3>All User Courses</h3>
-                {/* {this.state.message && <div class="alert alert-success">{this.state.message}</div>} */}
+                {this.state.message && <div className="alert alert-success">{this.state.message}</div>}
                 <div className="container">
                     <table className="table">
                         <thead>
@@ -57,7 +57,9 @@ class ListUserCoursesComponent extends Component {
                                     course =>
                                         <tr key={course.id}>
                                             <td>{course.id}</td>
-                                            <td>{course.name}</td>                                            
+                                            <td>{course.name}</td> 
+                                            <td><button className="btn btn-warning" 
+                                                    onClick={() => this.deleteCourseClicked(this.props.match.params.id, course.id)}>Delete</button></td>                                           
                                         </tr>
                                 )
                             }

@@ -9,10 +9,14 @@ class UserCoursesDataService {
     retrieveAllCourses(userId) {
         return axios.get(`${USER_API_URL}/${userId}/courses`);
     }
+
+    async retrieveCourse(userId, courseId) {
+        return axios.get(`${USER_API_URL}/${userId}/courses/${courseId}`);
+    }
     
-    //TODO:
-    deleteCourse(userId) {
-       return axios.delete(`${USER_API_URL}/${userId}/courses`)
+    deleteCourse(user_id, course_id) {
+       console.log(course_id);
+       return axios.delete(`${USER_API_URL}/${user_id}/courses`, {data: {courseId: course_id}})       
     }
 }
 
