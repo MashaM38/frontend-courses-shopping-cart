@@ -10,7 +10,7 @@ class UserCoursesDataService {
         return axios.get(`${USER_API_URL}/${userId}/courses`);
     }
 
-    async retrieveCourse(userId, courseId) {
+    retrieveCourse(userId, courseId) {
         return axios.get(`${USER_API_URL}/${userId}/courses/${courseId}`);
     }
     
@@ -18,6 +18,12 @@ class UserCoursesDataService {
        console.log(course_id);
        return axios.delete(`${USER_API_URL}/${user_id}/courses`, {data: {courseId: course_id}})       
     }
+
+    addCourseForUser(user_id, userCourseId) {
+        console.log(userCourseId);
+        return axios.post(`${USER_API_URL}/${user_id}/courses`, userCourseId)            
+    }
+
 }
 
 export default new UserCoursesDataService;

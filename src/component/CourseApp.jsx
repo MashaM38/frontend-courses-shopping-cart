@@ -4,6 +4,7 @@ import ListUsersComponent from './ListUsersComponent';
 import HomeComponent from './HomeComponent';
 import UserComponent from './UserComponent';
 import AddUserComponent from './AddUserComponent';
+import AddUserCourseComponent from './AddUserCourseComponent';
 import ListUserCoursesComponent from './ListUserCoursesComponent';
 
 class CourseApp extends Component {
@@ -17,6 +18,7 @@ class CourseApp extends Component {
                         <Route path="/"  exact={true} component={HomeComponent} />
                         <Route path="/users" exact component={ListUsersComponent} />
                         <Route path="/users/new" exact component={AddUserComponent} />
+                        <Route path="/users/:id/courses/new" component={AddUserCourseComponent} />
                         <Route path="/users/:id/courses" component={ListUserCoursesComponent} />
                         <Route path="/users/:id" component={UserComponent} />                                                
                     </Switch>
