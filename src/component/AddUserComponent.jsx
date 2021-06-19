@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Spinner } from 'reactstrap';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import UserDataService from '../service/UserDataService';
 
@@ -11,13 +12,22 @@ class AddUserComponent extends Component {
             id: '',
             name: '',
             surname: '',
-            email: ''
+            email: '',
+            processing: false
         }        
         this.onSubmit = this.onSubmit.bind(this)
         this.validate = this.validate.bind(this)
     }
 
     componentDidMount() {
+    }
+
+    showProcessing = () => {
+        this.setState({ processing: true });
+    }
+    
+    hideProcessing = () => {
+        setTimeout(this.setState({ processing: false }), 2000);
     }
 
     onSubmit(values) {        
@@ -27,11 +37,9 @@ class AddUserComponent extends Component {
             surname: values.surname,
             email: values.email,
             targetDate: values.targetDate
-        }
-
+        }        
         UserDataService.createUser(user)
-                .then(() => this.props.history.push('/users'))
-        
+                .then(() => this.props.history.push('/users'))        
         console.log(values);
     }
 
@@ -59,7 +67,6 @@ class AddUserComponent extends Component {
         } else if (!values.email.includes('@')) {
             errors.surname = 'Invalid e-mail!'
         }
-    
         return errors
     }
 
@@ -98,7 +105,16 @@ class AddUserComponent extends Component {
                                     <label>E-mail</label>
                                     <Field className="form-control" type="text" name="email" />
                                 </fieldset>
-                                <button className="btn btn-success" type="submit">Save</button>
+                                <button className="btn btn-success" type="submit" onClick={this.showProcessing}>
+                                    {!this.state.processing ? "Save" : "Saving.."}
+                                    {this.state.processing ? (
+                                            <Spinner
+                                                style={{ width: "0.7rem", height: "0.7rem" }}
+                                                type="grow"
+                                                color="light"
+                                                />
+                                    ):null}
+                                </button>
                             </Form>
                         )
                     }

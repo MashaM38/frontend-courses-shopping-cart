@@ -23,7 +23,6 @@ class UserCoursesDataService {
         console.log(userCourseId);
         return axios.post(`${USER_API_URL}/${user_id}/courses`, userCourseId)            
     }
-
 }
 
 export default new UserCoursesDataService;

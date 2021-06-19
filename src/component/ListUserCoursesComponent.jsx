@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Container } from 'reactstrap';
+import { Button, Spinner } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import UserCoursesDataService from '../service/UserCoursesDataService';
 
@@ -9,7 +9,8 @@ class ListUserCoursesComponent extends Component {
         super(props)
         this.state = {
             courses: [],            
-            message: null
+            message: null,
+            processing: false
         }
         this.refreshCourses = this.refreshCourses.bind(this)
         this.deleteCourseClicked = this.deleteCourseClicked.bind(this)
@@ -29,14 +30,24 @@ class ListUserCoursesComponent extends Component {
                 }
             )
     }
+
+    showProcessing = () => {
+        this.setState({ processing: true });
+    }
+    
+    hideProcessing = () => {
+        setTimeout(this.setState({ processing: false }), 2000);
+    }
  
     deleteCourseClicked(userId, courseId) {
+        this.showProcessing()
         console.log('Delete course id = ' + courseId)
         UserCoursesDataService.deleteCourse(userId, courseId)
         .then(
             response => {
                 this.setState({ message: `Delete of courseId ${courseId} is Successful` })
                 this.refreshCourses(userId)
+                this.hideProcessing()
             }
         )  
     }
@@ -70,8 +81,19 @@ class ListUserCoursesComponent extends Component {
                                         <tr key={course.id}>
                                             <td>{course.id}</td>
                                             <td>{course.name}</td> 
-                                            <td><button className="btn btn-warning" 
-                                                    onClick={() => this.deleteCourseClicked(this.props.match.params.id, course.id)}>Delete</button></td>                                           
+                                            <td>
+                                                <button className="btn btn-warning" 
+                                                    onClick={() => this.deleteCourseClicked(this.props.match.params.id, course.id)}>                                                        
+                                                        {!this.state.processing ? "Delete" : "Deleting.."}
+                                                        {this.state.processing ? (
+                                                            <Spinner
+                                                                style={{ width: "0.7rem", height: "0.7rem" }}
+                                                                type="grow"
+                                                                color="light"
+                                                            />
+                                                        ):null}    
+                                                </button>
+                                            </td>                                           
                                         </tr>
                                 )
                             }

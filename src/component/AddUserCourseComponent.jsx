@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Spinner } from 'reactstrap';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import UserCoursesDataService from '../service/UserCoursesDataService';
 
@@ -10,13 +11,22 @@ class AddUserCourseComponent extends Component {
         this.state = {
             userId: this.props.match.params.id,
             courseId: '', 
-            errorMessage: null
+            errorMessage: null,
+            processing: false
         }        
         this.onSubmit = this.onSubmit.bind(this)
         this.validate = this.validate.bind(this)
     }
 
     componentDidMount() {        
+    }
+
+    showProcessing = () => {
+        this.setState({ processing: true });
+    }
+    
+    hideProcessing = () => {
+        setTimeout(this.setState({ processing: false }), 2000);
     }
 
     onSubmit(values) {        
@@ -30,7 +40,7 @@ class AddUserCourseComponent extends Component {
                 .then(() => this.props.history.push(`/users/${this.props.match.params.id}/courses`))
                 .catch(err => { 
                     this.setState({errorMessage: err.message});
-                  })    
+                  })     
         console.log(values);
     }
 
@@ -67,7 +77,16 @@ class AddUserCourseComponent extends Component {
                                     <label>CourseId</label>
                                     <Field className="form-control" type="text" name="courseId"/>
                                 </fieldset>                                
-                                <button className="btn btn-success" type="submit">Save</button>
+                                <button className="btn btn-success" onClick={this.showProcessing} type="submit">
+                                {!this.state.processing ? "Save" : "Saving.."}
+                                    {this.state.processing ? (
+                                            <Spinner
+                                                style={{ width: "0.7rem", height: "0.7rem" }}
+                                                type="grow"
+                                                color="light"
+                                                />
+                                    ):null}
+                                </button>
                             </Form>
                         )
                     }
